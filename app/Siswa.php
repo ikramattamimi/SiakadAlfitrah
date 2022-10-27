@@ -10,7 +10,7 @@ class Siswa extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['no_induk', 'nis', 'nama_siswa', 'kelas_id', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'foto'];
+    protected $fillable = ['no_induk', 'nis', 'nama_siswa', 'kelas_id', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'foto','password'];
 
     public function kelas()
     {

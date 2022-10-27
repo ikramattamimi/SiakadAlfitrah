@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Siswa;
+use App\User;
 use App\Kelas;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -22,12 +23,20 @@ class SiswaImport implements ToModel
             $foto = 'uploads/siswa/50271431012020_female.jpg';
         }
 
+        return new User([
+            'name' => $row[1],
+            'email' => $row[1],
+            'password' => md5($row[4]),
+            'role' => 'siswa',
+        ]);
+
         return new Siswa([
             'nama_siswa' => $row[0],
             'no_induk' => $row[1],
             'jk' => $row[2],
             'foto' => $foto,
             'kelas_id' => $kelas->id,
+            'password' => $row[4],
         ]);
     }
 }
