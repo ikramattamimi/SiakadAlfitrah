@@ -41,6 +41,7 @@
                       <li>rows 2 = no induk siswa</li>
                       <li>rows 3 = jenis kelamin</li>
                       <li>rows 4 = nama kelas</li>
+                      <li>rows 4 = password</li>
                     </ul>
                   </div>
                 </div>

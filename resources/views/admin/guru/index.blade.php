@@ -41,6 +41,7 @@
                       <li>rows 2 = nip guru</li>
                       <li>rows 3 = jenis kelamin</li>
                       <li>rows 4 = mata pelajaran</li>
+                      <li>rows 5 = password</li>
                     </ul>
                   </div>
                 </div>

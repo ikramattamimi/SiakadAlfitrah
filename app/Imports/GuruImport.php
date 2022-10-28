@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Guru;
+use App\User;
 use App\Mapel;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -42,6 +43,13 @@ class GuruImport implements ToModel
             'jk' => $row[2],
             'foto' => $foto,
             'mapel_id' => $mapel->id,
+            'password' => $row[4],
+        ]);
+
+        return new User([
+            'name' => $row[0],
+            'role' => 'Guru',
+            'password' => $row[5],
         ]);
     }
 }
