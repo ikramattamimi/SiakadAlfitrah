@@ -17,13 +17,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'role', 'no_induk', 'id_card'
+    protected $guarded = [
+        'id'
     ];
 
     public function guru($id)
     {
-        $guru = Guru::where('id_card', $id)->first();
+        $guru = Guru::where('id', $id)->first();
         return $guru;
     }
 

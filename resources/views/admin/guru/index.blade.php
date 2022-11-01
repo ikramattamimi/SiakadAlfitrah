@@ -165,32 +165,32 @@
                     @endforeach
                   </select>
                 </div>
-                @php
+                {{-- @php
                   $kode = $max + 1;
                   if (strlen($kode) == 1) {
-                      $id_card = '0000' . $kode;
+                      $id = '0000' . $kode;
                   } elseif (strlen($kode) == 2) {
-                      $id_card = '000' . $kode;
+                      $id = '000' . $kode;
                   } elseif (strlen($kode) == 3) {
-                      $id_card = '00' . $kode;
+                      $id = '00' . $kode;
                   } elseif (strlen($kode) == 4) {
-                      $id_card = '0' . $kode;
+                      $id = '0' . $kode;
                   } else {
-                      $id_card = $kode;
+                      $id = $kode;
                   }
-                @endphp
-                <div class="form-group">
-                  <label for="id_card">Nomor ID Card</label>
-                  <input type="text" id="id_card" name="id_card" maxlength="5"
-                    onkeypress="return inputAngka(event)" value="{{ $id_card }}"
-                    class="form-control @error('id_card') is-invalid @enderror" readonly>
-                </div>
-                <div class="form-group">
+                @endphp --}}
+                {{-- <div class="form-group">
+                  <label for="id">Nomor ID Card</label>
+                  <input type="text" id="id" name="id" maxlength="5"
+                    onkeypress="return inputAngka(event)" value="{{ $id }}"
+                    class="form-control @error('id') is-invalid @enderror" readonly>
+                </div> --}}
+                {{-- <div class="form-group">
                   <label for="kode">Kode Jadwal</label>
                   <input type="text" id="kode" name="kode" maxlength="3"
                     onkeyup="this.value = this.value.toUpperCase()"
                     class="form-control @error('kode') is-invalid @enderror">
-                </div>
+                </div> --}}
                 <div class="form-group">
                   <label for="foto">File input</label>
                   <div class="input-group">

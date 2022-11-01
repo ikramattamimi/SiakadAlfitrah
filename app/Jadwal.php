@@ -72,8 +72,9 @@ class Jadwal extends Model
   public function absen($id)
   {
     $absen = Absen::where('tanggal', date('Y-m-d'))->where('guru_id', $id)->first();
-    $ket = Kehadiran::where('id', $absen['kehadiran_id'])->first();
-    return $ket['color'];
+    // $ket = Kehadiran::where('id', $absen['kehadiran_id'])->first();
+    $ket = 'naonsi';
+    return '#a23423';
   }
 
   public function cekUlangan($id)

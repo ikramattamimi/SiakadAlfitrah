@@ -23,7 +23,7 @@ class RapotController extends Controller
      */
     public function index()
     {
-        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $guru = Guru::where('id', Auth::user()->id)->first();
         $jadwal = Jadwal::where('guru_id', $guru->id)->orderBy('kelas_id')->get();
         $kelas = $jadwal->groupBy('kelas_id');
 
@@ -81,7 +81,7 @@ class RapotController extends Controller
     public function show($id)
     {
         $id = Crypt::decrypt($id);
-        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $guru = Guru::where('id', Auth::user()->id)->first();
         $kelas = Kelas::findorfail($id);
         $siswa = Siswa::where('kelas_id', $id)->get();
         return view('guru.rapot.rapot', compact('guru', 'kelas', 'siswa'));

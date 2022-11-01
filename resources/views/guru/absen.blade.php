@@ -1,69 +1,55 @@
 @extends('template_backend.home')
-@section('heading', 'Absen Harian Guru')
+@section('heading', 'Absen Guru')
+@section('heading')
+  Absen Guru {{ Auth::user()->guru(Auth::user()->id)->nama_guru }}
+@endsection
 @section('page')
-  <li class="breadcrumb-item active">Absen Harian guru</li>
+  <li class="breadcrumb-item active">Absen Guru</li>
 @endsection
 @section('content')
-@php
-    $no = 1;
-@endphp
-<div class="col-md-6">
+  <div class="col-md-12">
     <div class="card">
-        <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Guru</th>
-                    <th>Ket.</th>
-                    <th width="80px">Jam Absen</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($absen as $data)
-                    <tr>
-                        <td>{{ $no++ }}</td>
-                        <td>{{ $data->guru->nama_guru }}</td>
-                        <td>{{ $data->kehadiran->ket }}</td>
-                        <td>{{ $data->created_at->format('H:i:s') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
-    </div>
-</div>
-<div class="col-md-6">
-    <div class="card card-primary">
-      <div class="card-header">
-        <h3 class="card-title">Absen Harian Guru</h3>
+      <div class="card-body">
+        <table id="example2" class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Hari</th>
+              <th>Kelas</th>
+              <th>Jam Mengajar</th>
+              <th>Ruang Kelas</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($jadwal as $data)
+              <tr>
+                <td>{{ $data->hari->nama_hari }}</td>
+                <td>{{ $data->kelas->nama_kelas }}</td>
+                <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }}</td>
+                <td>{{ $data->ruang->nama_ruang }}</td>
+                <td>
+                  <form action="{{ route('absen.simpan') }}" method="post">
+                    @csrf
+                    <input type="text" name="id" value="{{ Auth::user()->id_guru }}" hidden>
+                    <input type="text" name="kehadiran_id" value="1" hidden>
+                    <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp;
+                      Absen</button>
+
+                  </form>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
-      <form action="{{ route('absen.simpan') }}" method="post">
-        @csrf
-        <div class="card-body">
-            <div class="form-group">
-                <label for="id_card">Nomor ID Card</label>
-                <input type="text" id="id_card" name="id_card" maxlength="5" onkeypress="return inputAngka(event)" class="form-control @error('id_card') is-invalid @enderror">
-            </div>
-            <div class="form-group">
-              <label for="kehadiran_id">Keterangan Kehadiran</label>
-              <select id="kehadiran_id" type="text" class="form-control @error('kehadiran_id') is-invalid @enderror select2bs4" name="kehadiran_id">
-                <option value="">-- Pilih Keterangan Kehadiran --</option>
-                @foreach ($kehadiran as $data)
-                  <option value="{{ $data->id }}">{{ $data->ket }}</option>
-                @endforeach
-              </select>
-            </div>
-        </div>
-        <div class="card-footer">
-          <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Absen</button>
-        </div>
-      </form>
+      <!-- /.card-body -->
     </div>
-</div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
 @endsection
 @section('script')
-    <script>
-        $("#AbsenGuru").addClass("active");
-    </script>
+  <script>
+    $("#AbsenGuru").addClass("active");
+  </script>
 @endsection

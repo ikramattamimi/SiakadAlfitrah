@@ -28,7 +28,7 @@ class GuruController extends Controller
     public function index()
     {
         $mapel = Mapel::orderBy('nama_mapel')->get();
-        $max = Guru::max('id_card');
+        $max = Guru::max('id');
         return view('admin.guru.index', compact('mapel', 'max'));
     }
 
@@ -51,7 +51,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_card' => 'required',
+            // 'id' => 'required',
             'nama_guru' => 'required',
             'mapel_id' => 'required',
             'kode' => 'string|unique:guru|max:3',
@@ -72,11 +72,10 @@ class GuruController extends Controller
         }
 
         $guru = Guru::create([
-            'id_card' => $request->id_card,
+            // 'id' => $request->id,
             'nip' => $request->nip,
             'nama_guru' => $request->nama_guru,
             'mapel_id' => $request->mapel_id,
-            'kode' => $request->kode,
             'jk' => $request->jk,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,
@@ -134,7 +133,7 @@ class GuruController extends Controller
         ]);
 
         $guru = Guru::findorfail($id);
-        $user = User::where('id_card', $guru->id_card)->first();
+        $user = User::where('id', $guru->id)->first();
         if ($user) {
             $user_data = [
                 'name' => $request->nama_guru
@@ -169,9 +168,9 @@ class GuruController extends Controller
             $jadwal = Jadwal::where('guru_id', $guru->id)->delete();
         } else {
         }
-        $countUser = User::where('id_card', $guru->id_card)->count();
+        $countUser = User::where('id', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::where('id_card', $guru->id_card)->delete();
+            $user = User::where('id', $guru->id)->delete();
         } else {
         }
         $guru->delete();
@@ -193,9 +192,9 @@ class GuruController extends Controller
             $jadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->restore();
         } else {
         }
-        $countUser = User::withTrashed()->where('id_card', $guru->id_card)->count();
+        $countUser = User::withTrashed()->where('id', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_card', $guru->id_card)->restore();
+            $user = User::withTrashed()->where('id', $guru->id)->restore();
         } else {
         }
         $guru->restore();
@@ -210,9 +209,9 @@ class GuruController extends Controller
             $jadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->forceDelete();
         } else {
         }
-        $countUser = User::withTrashed()->where('id_card', $guru->id_card)->count();
+        $countUser = User::withTrashed()->where('id', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_card', $guru->id_card)->forceDelete();
+            $user = User::withTrashed()->where('id', $guru->id)->forceDelete();
         } else {
         }
         $guru->forceDelete();
@@ -246,29 +245,35 @@ class GuruController extends Controller
 
     public function mapel($id)
     {
+        // dd($id);
         $id = Crypt::decrypt($id);
         $mapel = Mapel::findorfail($id);
-        $guru = Guru::where('mapel_id', $id)->orderBy('kode', 'asc')->get();
+        $guru = Guru::where('mapel_id', $id)->orderBy('nama_guru', 'asc')->get();
         return view('admin.guru.show', compact('mapel', 'guru'));
     }
 
     public function absen()
     {
-        $absen = Absen::where('tanggal', date('Y-m-d'))->get();
-        $kehadiran = Kehadiran::limit(4)->get();
-        return view('guru.absen', compact('absen', 'kehadiran'));
+        // $absen = Absen::where('tanggal', date('Y-m-d'))->get();
+        // $kehadiran = Kehadiran::limit(4)->get();
+        // return view('guru.absen', compact('absen', 'kehadiran'));
+
+        $guru = Guru::where('id', Auth::user()->id_guru)->first();
+        // dd(Auth::user());
+        $jadwal = Jadwal::OrderBy('jam_mulai')->where('guru_id', $guru->id)->where('hari_id', date('w'))->get();
+        return view('guru.absen', compact('jadwal', 'guru'));
     }
 
     public function simpan(Request $request)
     {
         $this->validate($request, [
-            'id_card' => 'required',
+            'id' => 'required',
             'kehadiran_id' => 'required'
         ]);
-        $cekGuru = Guru::where('id_card', $request->id_card)->count();
+        $cekGuru = Guru::where('id', $request->id)->count();
         if ($cekGuru >= 1) {
-            $guru = Guru::where('id_card', $request->id_card)->first();
-            if ($guru->id_card == Auth::user()->id_card) {
+            $guru = Guru::where('id', $request->id)->first();
+            if ($guru->id == Auth::user()->id_guru) {
                 $cekAbsen = Absen::where('guru_id', $guru->id)->where('tanggal', date('Y-m-d'))->count();
                 if ($cekAbsen == 0) {
                     if (date('w') != '0' && date('w') != '6') {

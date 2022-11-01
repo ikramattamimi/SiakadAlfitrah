@@ -24,7 +24,8 @@ class UserController extends Controller
     {
         $user = User::all();
         $user = $user->groupBy('role');
-        return view('admin.user.index', compact('user'));
+        $guru = Guru::all();
+        return view('admin.user.index', compact('user', 'guru'));
     }
 
     /**
@@ -52,8 +53,9 @@ class UserController extends Controller
         ]);
 
         if ($request->role == 'Guru') {
-            $countGuru = Guru::where('id_card', $request->nomer)->count();
-            $guruId = Guru::where('id_card', $request->nomer)->get();
+            // dd($request->id_guru);
+            $countGuru = Guru::where('id', $request->id_guru)->count();
+            $guruId = Guru::where('id', $request->id_guru)->get();
             foreach ($guruId as $val) {
                 $guru = Guru::findorfail($val->id);
             }
@@ -63,7 +65,7 @@ class UserController extends Controller
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role' => $request->role,
-                    'id_card' => $request->nomer,
+                    'id_guru' => $request->id_guru,
                 ]);
                 return redirect()->back()->with('success', 'Berhasil menambahkan user Guru baru!');
             } else {
@@ -243,8 +245,8 @@ class UserController extends Controller
                 'tmp_lahir' => 'required',
                 'tgl_lahir' => 'required',
             ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
-            $user = User::where('id_card', Auth::user()->id_card)->first();
+            $guru = Guru::where('id', Auth::user()->id)->first();
+            $user = User::where('id', Auth::user()->id)->first();
             if ($user) {
                 $user_data = [
                     'name' => $request->name
@@ -315,7 +317,7 @@ class UserController extends Controller
             $this->validate($request, [
                 'foto' => 'required'
             ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+            $guru = Guru::where('id', Auth::user()->id)->first();
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             $guru_data = [

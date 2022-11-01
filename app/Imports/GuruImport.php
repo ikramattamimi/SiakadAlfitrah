@@ -16,18 +16,18 @@ class GuruImport implements ToModel
      */
     public function model(array $row)
     {
-        $max = Guru::max('id_card');
+        $max = Guru::max('id');
         $kode = $max + 1;
         if (strlen($kode) == 1) {
-            $id_card = "0000" . $kode;
+            $id = "0000" . $kode;
         } else if (strlen($kode) == 2) {
-            $id_card = "000" . $kode;
+            $id = "000" . $kode;
         } else if (strlen($kode) == 3) {
-            $id_card = "00" . $kode;
+            $id = "00" . $kode;
         } else if (strlen($kode) == 4) {
-            $id_card = "0" . $kode;
+            $id = "0" . $kode;
         } else {
-            $id_card = $kode;
+            $id = $kode;
         }
         $mapel = Mapel::where('nama_mapel', $row[3])->first();
         if ($row[2] == 'L') {
@@ -37,7 +37,7 @@ class GuruImport implements ToModel
         }
 
         return new Guru([
-            'id_card' => $id_card,
+            'id' => $id,
             'nama_guru' => $row[0],
             'nip' => $row[1],
             'jk' => $row[2],

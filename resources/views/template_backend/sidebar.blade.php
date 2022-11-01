@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="" class="brand-link" style="">
-    <img src="{{ asset('img/alfitrah.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+    <img src="{{ asset('img/alfitrah.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
     <span class="brand-text font-weight-light">SMPIT Alfitrah</span>
   </a>
 
@@ -13,11 +13,11 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Operator')
           <li class="nav-item">
-                <a href="{{ route('admin.home') }}" class="nav-link" id="AdminHome">
-                  <i class="fas fa-home nav-icon"></i>
-                  <p>Dashboard Admin</p>
-                </a>
-              </li>
+            <a href="{{ route('admin.home') }}" class="nav-link" id="AdminHome">
+              <i class="fas fa-home nav-icon"></i>
+              <p>Dashboard Admin</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview" id="liMasterData">
             <a href="#" class="nav-link" id="MasterData">
               <i class="nav-icon fas fa-edit"></i>
@@ -74,7 +74,7 @@
               <p>Absensi Guru</p>
             </a>
           </li>
-        @elseif (Auth::user()->role == 'Guru' && Auth::user()->guru(Auth::user()->id_card))
+        @elseif (Auth::user()->role == 'Guru' && Auth::user()->guru(Auth::user()->id))
           <li class="nav-item has-treeview">
             <a href="{{ url('/') }}" class="nav-link" id="Home">
               <i class="nav-icon fas fa-home"></i>

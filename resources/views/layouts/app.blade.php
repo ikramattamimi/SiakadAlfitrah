@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-  <link rel="shrotcut icon" href="{{ asset('img/alfitrah.jpg') }}">
+  <link rel="shrotcut icon" href="{{ asset('img/alfitrah.png') }}">
 </head>
 <body class="hold-transition login-page" style="background-image: url('{{ asset("img/login-bg.jpg") }}'); background-size: cover; background-attachment: fixed;">
   <div class="login-box">
     <div class="login-logo">
-      <img src="{{ asset('img/alfitrah.jpg') }}" width="100px" alt="">
+      <img src="{{ asset('img/alfitrah.png') }}" width="100px" alt="">
     </div>
 
     <div class="login-logo" style="color: white;">
@@ -90,7 +90,7 @@
 </script>
 @yield('script')
 
-@error('id_card')
+@error('id')
   <script>
     toastr.error("Maaf User ini tidak terdaftar sebagai Guru SMPIT Al Fitrah!");
   </script>

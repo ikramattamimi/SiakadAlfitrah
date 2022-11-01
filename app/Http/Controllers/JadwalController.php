@@ -205,7 +205,8 @@ class JadwalController extends Controller
 
     public function guru()
     {
-        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $guru = Guru::where('id', Auth::user()->id_guru)->first();
+        // dd(Auth::user());
         $jadwal = Jadwal::orderBy('hari_id')->OrderBy('jam_mulai')->where('guru_id', $guru->id)->get();
         return view('guru.jadwal', compact('jadwal', 'guru'));
     }

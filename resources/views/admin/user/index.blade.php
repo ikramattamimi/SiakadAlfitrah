@@ -84,6 +84,20 @@
                     </span>
                   @enderror
                 </div>
+                <div id="apapun" class="form-group d-none">
+                  <label for="id_guru">Nama Guru</label>
+                  <select id="id_guru" type="text" class="form-control select2bs4" name="id_guru">
+                    <option value="">-- Select Nama Guru --</option>
+                    @foreach ($guru as $item)
+                      <option value={{ $item->id }}>{{ $item->nama_guru }}</option>
+                    @endforeach
+                  </select>
+                  @error('role')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
                 <div class="form-group" id="noId">
                 </div>
                 <div class="form-group">
@@ -127,17 +141,22 @@
       $('#role').change(function() {
         var kel = $('#role option:selected').val();
         if (kel == "Guru") {
-          $("#noId").html(
-            '<label for="nomer">Nomer Id Card</label><input id="nomer" type="text" maxlength="5" onkeypress="return inputAngka(event)" placeholder="No Id Card" class="form-control" name="nomer" autocomplete="off">'
-            );
+          $("#apapun").removeClass("d-none");
+          $("#apapun").addClass("text-danger");
+          // $("#noId").html(
+          //   `<label for = "id_guru">Nama Guru</label>
+        //   <select class="form-control select2bs4" name="id_guru" id="id_guru" autocomplete="guru">
+
+        //   </select>`
+          // );
         } else if (kel == "Siswa") {
           $("#noId").html(
             `<label for="nomer">Nomer Induk Siswa</label><input id="nomer" type="text" placeholder="No Induk Siswa" class="form-control" name="nomer" autocomplete="off">`
-            );
+          );
         } else if (kel == "Admin" || kel == "Operator") {
           $("#noId").html(
             `<label for="name">Username</label><input id="name" type="text" placeholder="Username" class="form-control" name="name" autocomplete="off">`
-            );
+          );
         } else {
           $("#noId").html("")
         }
