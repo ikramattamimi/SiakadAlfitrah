@@ -254,14 +254,13 @@ class GuruController extends Controller
 
     public function absen()
     {
-        // $absen = Absen::where('tanggal', date('Y-m-d'))->get();
-        // $kehadiran = Kehadiran::limit(4)->get();
-        // return view('guru.absen', compact('absen', 'kehadiran'));
+        $absen = Absen::where('tanggal', date('Y-m-d'))->get();
+        $kehadiran = Kehadiran::limit(4)->get();
+        return view('guru.absen', compact('absen', 'kehadiran'));
 
-        $guru = Guru::where('id', Auth::user()->id_guru)->first();
-        // dd(Auth::user());
-        $jadwal = Jadwal::OrderBy('jam_mulai')->where('guru_id', $guru->id)->where('hari_id', date('w'))->get();
-        return view('guru.absen', compact('jadwal', 'guru'));
+        // $guru = Guru::where('id', Auth::user()->id_guru)->first();
+        // $jadwal = Jadwal::OrderBy('jam_mulai')->where('guru_id', $guru->id)->where('hari_id', date('w'))->get();
+        // return view('guru.absen', compact('jadwal', 'guru'));
     }
 
     public function simpan(Request $request)
