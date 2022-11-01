@@ -1,0 +1,57 @@
+.bg{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #01497C, #468FAF);
+  }
+.buttonLogin{
+    
+    font-weight: 600;
+    color: #A9D6E5;
+    background-color: #012A4A;
+}
+
+.buttonLogin:hover{
+    border: solid black 1px;
+    font-weight: 600;
+    color: #012A4A;
+    background-color: #A9D6E5;
+}
+
+.cardField{
+    align-content: center;
+    width: 300px;
+    height: 400px;
+}
+
+.subMsg{
+    text-align: left;
+    margin-top: -10px;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    font-size: small;
+}
+
+.show-hide{
+    position: absolute;
+    padding-left: 5px;
+    right: 45px;
+    bottom: 135px;
+    transform: translateY(50%);
+    border-left: solid black 1px;
+}
+
+.show-hide i{
+    cursor: pointer;
+    display: none;
+}
+
+.show-hide i.hide::before{
+    content: "\f070";
+}
+
+input:valid~.show-hide i{
+    display: block;
+}

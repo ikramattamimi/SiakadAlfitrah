@@ -3,33 +3,33 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Sistem Informasi Akademik Sekolah</title>
+  <title>Akademik | Al-Fitrah</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <link rel="shrotcut icon" href="{{ asset('img/alfitrah.jpg') }}">
+  <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+  <script src="jquery.js"></script>
 </head>
-<body class="hold-transition login-page" style="background-image: url('{{ asset("img/login-bg.jpg") }}'); background-size: cover; background-attachment: fixed;">
+<body class="hold-transition login-page bg">
   <div class="login-box">
-    <div class="login-logo">
+    {{-- <div class="login-logo">
       <img src="{{ asset('img/alfitrah.jpg') }}" width="100px" alt="">
-    </div>
+    </div> --}}
 
     <div class="login-logo" style="color: white;">
       @yield('page')
     </div>
 
-    <div class="card">
+    <div class="card cardField">
       @yield('content')
     </div>
 
-    <footer style="color: white;">
-      <marquee>
-          <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> &diams; <a href="#" style="color: white;">SMPIT Al Fitrah</a>. </strong>
-      </marquee>
-    </footer>
+    {{-- <footer style="color: white;">
+      <p class="text-center">Copyright &copy; 2022 SMPIT Al Fitrah</a>. </p>
+    </footer> --}}
   </div>
 
 <!-- jQuery -->

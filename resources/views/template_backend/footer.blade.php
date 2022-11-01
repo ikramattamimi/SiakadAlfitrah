@@ -1,11 +1,11 @@
 <footer class="main-footer">
-  <marquee>
+  <center>
     <strong>Copyright &copy;
       <script>
         document.write(new Date().getFullYear());
       </script> &diams; <a href="#">SMPIT Al Fitrah</a>.
     </strong>
-  </marquee>
+  </center>
 </footer>
 
 <!-- Control Sidebar -->
