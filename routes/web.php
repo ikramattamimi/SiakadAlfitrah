@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ulangan/siswa', 'UlanganController@siswa')->name('ulangan.siswa');
     Route::get('/sikap/siswa', 'SikapController@siswa')->name('sikap.siswa');
     Route::get('/rapot/siswa', 'RapotController@siswa')->name('rapot.siswa');
+    Route::get('/absen/harian/siswa', 'SiswaController@absen')->name('siswa.absen.harian');
+    Route::post('/absen/simpan/siswa', 'SiswaController@simpan')->name('siswa.absen.simpan');
   });
 
   Route::middleware(['guru'])->group(function () {

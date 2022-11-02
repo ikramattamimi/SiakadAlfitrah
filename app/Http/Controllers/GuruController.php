@@ -254,7 +254,7 @@ class GuruController extends Controller
 
     public function absen()
     {
-        $absen = Absen::where('tanggal', date('Y-m-d'))->get();
+        $absen = Absen::where('tanggal', date('Y-m-d'))->where('guru_id', Auth::user()->id_guru)->get();
         $kehadiran = Kehadiran::limit(4)->get();
         return view('guru.absen', compact('absen', 'kehadiran'));
 
