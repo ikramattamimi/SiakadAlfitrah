@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Absen;
+use App\AbsenSiswa;
 use PDF;
 use App\User;
 use App\Kelas;
@@ -10,11 +12,96 @@ use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Kehadiran;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Crypt;
 
 class SiswaController extends Controller
 {
+
+    public function absen()
+    {
+        $absen = AbsenSiswa::where('tanggal', date('Y-m-d'))->where('no_induk', Auth::user()->no_induk)->get();
+        $kehadiran = Kehadiran::limit(4)->get();
+        return view('siswa.absen', compact('absen', 'kehadiran'));
+    }
+
+    public function simpan(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'kehadiran_id' => 'required'
+        ]);
+        $cekSiswa = Siswa::where('no_induk', $request->id)->count();
+        if ($cekSiswa >= 1) {
+            $siswa = Siswa::where('no_induk', $request->id)->first();
+            if ($siswa->no_induk == Auth::user()->no_induk) {
+                $cekAbsen = AbsenSiswa::where('no_induk', $siswa->no_induk)->where('tanggal', date('Y-m-d'))->count();
+                if ($cekAbsen == 0) {
+                    if (date('w') != '0' && date('w') != '6') {
+                        if (date('H:i:s') >= '06:00:00') {
+                            if (date('H:i:s') >= '09:00:00') {
+                                if (date('H:i:s') >= '16:15:00') {
+                                    AbsenSiswa::create([
+                                        'tanggal' => date('Y-m-d'),
+                                        'no_induk' => $siswa->no_induk,
+                                        'kehadiran_id' => '6',
+                                        'siswa_id' => $siswa->id,
+                                    ]);
+                                    return redirect()->back()->with('info', 'Maaf sekarang sudah waktunya pulang!');
+                                } else {
+                                    if ($request->kehadiran_id == '1') {
+                                        $terlambat = date('H') - 9 . ' Jam ' . date('i') . ' Menit';
+                                        if (date('H') - 9 == 0) {
+                                            $terlambat = date('i') . ' Menit';
+                                        }
+                                        AbsenSiswa::create([
+                                            'tanggal' => date('Y-m-d'),
+                                            'no_induk' => $siswa->no_induk,
+                                            'kehadiran_id' => '5',
+                                            'siswa_id' => $siswa->id,
+                                        ]);
+                                        return redirect()->back()->with('warning', 'Maaf anda terlambat ' . $terlambat . '!');
+                                    } else {
+                                        AbsenSiswa::create([
+                                            'tanggal' => date('Y-m-d'),
+                                            'no_induk' => $siswa->no_induk,
+                                            'kehadiran_id' => $request->kehadiran_id,
+                                            'siswa_id' => $siswa->id,
+                                        ]);
+                                        return redirect()->back()->with('success', 'Anda hari ini berhasil absen!');
+                                    }
+                                }
+                            } else {
+                                AbsenSiswa::create([
+                                    'tanggal' => date('Y-m-d'),
+                                    'no_induk' => $siswa->no_induk,
+                                    'kehadiran_id' => $request->kehadiran_id,
+                                    'siswa_id' => $siswa->id,
+                                ]);
+                                return redirect()->back()->with('success', 'Anda hari ini berhasil absen tepat waktu!');
+                            }
+                        } else {
+                            return redirect()->back()->with('info', 'Maaf absensi di mulai jam 6 pagi!');
+                        }
+                    } else {
+                        $namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+                        $d = date('w');
+                        $hari = $namaHari[$d];
+                        return redirect()->back()->with('info', 'Maaf sekolah hari ' . $hari . ' libur!');
+                    }
+                } else {
+                    return redirect()->back()->with('warning', 'Maaf absensi tidak bisa dilakukan 2x!');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Maaf id card ini bukan milik anda!');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Maaf id card ini tidak terdaftar!');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

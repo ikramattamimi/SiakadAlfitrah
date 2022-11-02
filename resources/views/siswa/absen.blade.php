@@ -1,7 +1,7 @@
 @extends('template_backend.home')
-@section('heading', 'Absen Harian Guru')
+@section('heading', 'Absen Harian Siswa')
 @section('page')
-  <li class="breadcrumb-item active">Absen Harian guru</li>
+  <li class="breadcrumb-item active">Absen Harian siswa</li>
 @endsection
 @section('content')
   @php
@@ -14,7 +14,7 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Guru</th>
+              <th>Nama Siswa</th>
               <th>Ket.</th>
               <th width="80px">Jam Absen</th>
             </tr>
@@ -23,7 +23,7 @@
             @foreach ($absen as $data)
               <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ $data->guru->nama_guru }}</td>
+                <td>{{ $data->siswa->nama_siswa }}</td>
                 <td>{{ $data->kehadiran->ket }}</td>
                 <td>{{ $data->created_at->format('H:i:s') }}</td>
               </tr>
@@ -36,14 +36,14 @@
   <div class="col-md-6">
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Absen Harian Guru</h3>
+        <h3 class="card-title">Absen Harian Siswa</h3>
       </div>
-      <form action="{{ route('absen.simpan') }}" method="post">
+      <form action="{{ route('siswa.absen.simpan') }}" method="post">
         @csrf
         <div class="card-body">
           <div class="form-group">
             {{-- <label for="id">Nomor ID Card</label> --}}
-            <input type="text" id="id" name="id" value="{{ Auth::user()->id_guru }}" hidden maxlength="5"
+            <input type="text" id="id" name="id" value="{{ Auth::user()->no_induk }}" hidden maxlength="5"
               onkeypress="return" class="form-control @error('id') is-invalid @enderror">
           </div>
           <div class="form-group">
@@ -76,6 +76,6 @@
 @endsection
 @section('script')
   <script>
-    $("#AbsenGuru").addClass("active");
+    $("#AbsenSiswa").addClass("active");
   </script>
 @endsection

@@ -101,15 +101,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('jadwal.siswa') }}" class="nav-link" id="JadwalSiswa">
-              <i class="fas fa-calendar-alt nav-icon"></i>
-              <p>Jadwal</p>
+            <a href="{{ route('siswa.absen.harian') }}" class="nav-link" id="AbsenSiswa">
+              <i class="fas fa-calendar-check nav-icon"></i>
+              <p>Absensi</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" id="AbsensiGuru">
-              <i class="fas fa-calendar-check nav-icon"></i>
-              <p>Absensi</p>
+            <a href="{{ route('jadwal.siswa') }}" class="nav-link" id="JadwalSiswa">
+              <i class="fas fa-calendar-alt nav-icon"></i>
+              <p>Jadwal</p>
             </a>
           </li>
         @else
