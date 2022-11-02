@@ -3,9 +3,10 @@
 namespace App\Imports;
 
 use App\Siswa;
-use App\User;
 use App\Kelas;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SiswaImport implements ToModel
 {
@@ -22,12 +23,12 @@ class SiswaImport implements ToModel
         } else {
             $foto = 'uploads/siswa/50271431012020_female.jpg';
         }
-
-        return new User([
-            'name' => $row[1],
+        DB::table('users')->insert([
+            'name' => $row[0],
             'email' => $row[1],
-            'password' => md5($row[4]),
-            'role' => 'siswa',
+            'password' => Hash::make($row[4]),
+            'no_induk' => $row[1],
+            'role' => 'Siswa',
         ]);
 
         return new Siswa([
@@ -36,7 +37,8 @@ class SiswaImport implements ToModel
             'jk' => $row[2],
             'foto' => $foto,
             'kelas_id' => $kelas->id,
-            'password' => $row[4],
         ]);
+
+
     }
 }

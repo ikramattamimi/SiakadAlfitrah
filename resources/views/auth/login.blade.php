@@ -8,7 +8,7 @@
             @csrf
             <div class="form-group p-3">
                 <label for="username">Username</label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
                     placeholder="{{ __('Masukkan Username') }}" name="email" value="{{ old('email') }}"
                     autocomplete="off" autofocus>
                 @error('email')
