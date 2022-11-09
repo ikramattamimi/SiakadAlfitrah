@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ class Guru extends Model
 
     public function mapel()
     {
-        return $this->belongsTo('App\Mapel')->withDefault();
+        return $this->belongsTo('App\Models\Mapel')->withDefault();
     }
 
     protected $table = 'guru';

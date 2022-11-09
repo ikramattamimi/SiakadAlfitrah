@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Jadwal;
-use App\Hari;
-use App\Kelas;
-use App\Guru;
-use App\Siswa;
-use App\Ruang;
+use App\Models\Jadwal;
+use App\Models\Hari;
+use App\Models\Kelas;
+use App\Models\Guru;
+use App\Models\Siswa;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ use App\Exports\JadwalExport;
 use App\Imports\JadwalImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
-use App\Mapel;
+use App\Models\Mapel;
 
 class JadwalController extends Controller
 {

@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Siswa;
+use App\Models\Siswa;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class SiswaExport implements FromCollection

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Guru;
-use App\Kelas;
-use App\Mapel;
-use App\Nilai;
-use App\Rapot;
-use App\Sikap;
-use App\Siswa;
-use App\Jadwal;
+use App\Models\Guru;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Nilai;
+use App\Models\Rapot;
+use App\Models\Sikap;
+use App\Models\Siswa;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;

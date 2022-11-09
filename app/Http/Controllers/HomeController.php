@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Jadwal;
-use App\Guru;
-use App\Kehadiran;
-use App\Kelas;
-use App\Siswa;
-use App\Mapel;
-use App\User;
-use App\Paket;
-use App\Pengumuman;
+use App\Models\Jadwal;
+use App\Models\Guru;
+use App\Models\Kehadiran;
+use App\Models\Kelas;
+use App\Models\Siswa;
+use App\Models\Mapel;
+use App\Models\User;
+use App\Models\Paket;
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Jadwal;
-use App\Mapel;
-use App\Paket;
-use App\Guru;
+use App\Models\Jadwal;
+use App\Models\Mapel;
+use App\Models\Paket;
+use App\Models\Guru;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;

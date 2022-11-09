@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ class Siswa extends Model
 
     public function kelas()
     {
-        return $this->belongsTo('App\Kelas')->withDefault();
+        return $this->belongsTo('App\Models\Kelas')->withDefault();
     }
 
     public function ulangan($id)

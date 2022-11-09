@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Siswa;
+use App\Models\Siswa;
 use Faker\Generator as Faker;
 
 $factory->define(Siswa::class, function (Faker $faker) {

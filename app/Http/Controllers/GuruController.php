@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\User;
-use App\Guru;
-use App\Mapel;
-use App\Jadwal;
-use App\Absen;
-use App\Kehadiran;
+use App\Models\User;
+use App\Models\Guru;
+use App\Models\Mapel;
+use App\Models\Jadwal;
+use App\Models\Absen;
+use App\Models\Kehadiran;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,7 +16,7 @@ use App\Exports\GuruExport;
 use App\Imports\GuruImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
-use App\Nilai;
+use App\Models\Nilai;
 
 class GuruController extends Controller
 {

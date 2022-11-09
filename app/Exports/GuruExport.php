@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Guru;
+use App\Models\Guru;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class GuruExport implements FromCollection

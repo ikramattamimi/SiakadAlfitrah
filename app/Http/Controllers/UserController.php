@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\User;
-use App\Guru;
-use App\Siswa;
-use App\Mapel;
-use App\Kelas;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Crypt;
+use App\Models\Guru;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Siswa;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller

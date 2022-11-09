@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,7 @@ class Nilai extends Model
 
     public function guru()
     {
-        return $this->belongsTo('App\Guru')->withDefault();
+        return $this->belongsTo('App\Models\Guru')->withDefault();
     }
 
     protected $table = 'nilai';

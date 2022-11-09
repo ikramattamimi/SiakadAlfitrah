@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,12 +10,12 @@ class Absen extends Model
 
     public function guru()
     {
-        return $this->belongsTo('App\Guru')->withDefault();
+        return $this->belongsTo('App\Models\Guru')->withDefault();
     }
 
     public function kehadiran()
     {
-        return $this->belongsTo('App\Kehadiran')->withDefault();
+        return $this->belongsTo('App\Models\Kehadiran')->withDefault();
     }
 
     protected $table = 'absensi_guru';

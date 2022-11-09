@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -14,27 +14,27 @@ class Jadwal extends Model
 
   public function hari()
   {
-    return $this->belongsTo('App\Hari')->withDefault();
+    return $this->belongsTo('App\Models\Hari')->withDefault();
   }
 
   public function kelas()
   {
-    return $this->belongsTo('App\Kelas')->withDefault();
+    return $this->belongsTo('App\Models\Kelas')->withDefault();
   }
 
   public function mapel()
   {
-    return $this->belongsTo('App\Mapel')->withDefault();
+    return $this->belongsTo('App\Models\Mapel')->withDefault();
   }
 
   public function guru()
   {
-    return $this->belongsTo('App\Guru')->withDefault();
+    return $this->belongsTo('App\Models\Guru')->withDefault();
   }
 
   public function ruang()
   {
-    return $this->belongsTo('App\Ruang')->withDefault();
+    return $this->belongsTo('App\Models\Ruang')->withDefault();
   }
 
   public function rapot($id)

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Guru;
-use App\Siswa;
-use App\Kelas;
-use App\Jadwal;
-use App\Nilai;
-use App\Ulangan;
-use App\Rapot;
+use App\Models\Guru;
+use App\Models\Siswa;
+use App\Models\Kelas;
+use App\Models\Jadwal;
+use App\Models\Nilai;
+use App\Models\Ulangan;
+use App\Models\Rapot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;

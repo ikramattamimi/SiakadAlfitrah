@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Pengumuman;
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

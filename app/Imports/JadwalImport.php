@@ -2,12 +2,12 @@
 
 namespace App\Imports;
 
-use App\Jadwal;
-use App\Hari;
-use App\Kelas;
-use App\Mapel;
-use App\Guru;
-use App\Ruang;
+use App\Models\Jadwal;
+use App\Models\Hari;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Guru;
+use App\Models\Ruang;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class JadwalImport implements ToModel

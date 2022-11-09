@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Absen;
-use App\AbsenSiswa;
+use App\Models\Absen;
+use App\Models\AbsenSiswa;
 use PDF;
-use App\User;
-use App\Kelas;
-use App\Siswa;
+use App\Models\User;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Kehadiran;
+use App\Models\Kehadiran;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Crypt;

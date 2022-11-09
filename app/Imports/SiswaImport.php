@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Siswa;
-use App\Kelas;
+use App\Models\Siswa;
+use App\Models\Kelas;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +38,5 @@ class SiswaImport implements ToModel
             'foto' => $foto,
             'kelas_id' => $kelas->id,
         ]);
-
-
     }
 }

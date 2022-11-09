@@ -47,24 +47,26 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/pengaturan/password', 'UserController@edit_password')->name('pengaturan.password');
   Route::post('/pengaturan/ubah-password', 'UserController@ubah_password')->name('pengaturan.ubah-password');
 
+
   Route::middleware(['siswa'])->group(function () {
-    Route::get('/jadwal/siswa', 'JadwalController@siswa')->name('jadwal.siswa');
-    Route::get('/ulangan/siswa', 'UlanganController@siswa')->name('ulangan.siswa');
-    Route::get('/sikap/siswa', 'SikapController@siswa')->name('sikap.siswa');
-    Route::get('/rapot/siswa', 'RapotController@siswa')->name('rapot.siswa');
-    Route::get('/absen/harian/siswa', 'SiswaController@absen')->name('siswa.absen.harian');
-    Route::post('/absen/simpan/siswa', 'SiswaController@simpan')->name('siswa.absen.simpan');
+    Route::prefix('siswa')->group(function () {
+      Route::get('/jadwal', 'JadwalController@siswa')->name('jadwal.siswa');
+      Route::get('/absen', 'SiswaController@absen')->name('siswa.absen.harian');
+      Route::post('/absen/simpan', 'SiswaController@simpan')->name('siswa.absen.simpan');
+    });
   });
 
   Route::middleware(['guru'])->group(function () {
-    Route::get('/absen/harian', 'GuruController@absen')->name('absen.harian');
-    Route::post('/absen/simpan', 'GuruController@simpan')->name('absen.simpan');
-    Route::get('/jadwal/guru', 'JadwalController@guru')->name('jadwal.guru');
-    Route::resource('/nilai', 'NilaiController');
-    Route::resource('/ulangan', 'UlanganController');
-    Route::resource('/sikap', 'SikapController');
-    Route::get('/rapot/predikat', 'RapotController@predikat');
-    Route::resource('/rapot', 'RapotController');
+    Route::prefix('guru')->group(function () {
+      Route::get('/absen', 'GuruController@absen')->name('absen.harian');
+      Route::post('/absen/simpan', 'GuruController@simpan')->name('absen.simpan');
+      Route::get('/jadwal', 'JadwalController@guru')->name('jadwal.guru');
+      Route::resource('/nilai', 'NilaiController');
+      Route::resource('/ulangan', 'UlanganController');
+      Route::resource('/sikap', 'SikapController');
+      Route::get('/rapot/predikat', 'RapotController@predikat');
+      Route::resource('/rapot', 'RapotController');
+    });
   });
 
   Route::middleware(['admin'])->group(function () {
