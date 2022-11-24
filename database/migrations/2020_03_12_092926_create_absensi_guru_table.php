@@ -16,7 +16,8 @@ class CreateAbsensiGuruTable extends Migration
         Schema::create('absensi_guru', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('tanggal');
-            $table->integer('guru_id');
+            $table->unsignedBigInteger('guru_id');
+            $table->foreign('guru_id')->references('id')->on('guru');
             $table->integer('kehadiran_id');
             $table->timestamps();
         });

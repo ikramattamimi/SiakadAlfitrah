@@ -10,7 +10,7 @@ class Absen extends Model
 
     public function guru()
     {
-        return $this->belongsTo('App\Models\Guru')->withDefault();
+        return $this->belongsTo(Guru::class, 'guru_id', 'id');
     }
 
     public function kehadiran()

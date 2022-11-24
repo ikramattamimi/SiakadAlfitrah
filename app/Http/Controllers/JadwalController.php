@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+// use Auth;
 use App\Models\Jadwal;
 use App\Models\Hari;
 use App\Models\Kelas;
@@ -18,7 +18,7 @@ use App\Imports\JadwalImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Models\Mapel;
-
+use Illuminate\Support\Facades\Auth;
 class JadwalController extends Controller
 {
     /**
@@ -214,6 +214,7 @@ class JadwalController extends Controller
     public function siswa()
     {
         $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
+        // dd(Auth::user());
         $kelas = Kelas::findorfail($siswa->kelas_id);
         $jadwal = Jadwal::orderBy('hari_id')->OrderBy('jam_mulai')->where('kelas_id', $kelas->id)->get();
         return view('siswa.jadwal', compact('jadwal', 'kelas', 'siswa'));

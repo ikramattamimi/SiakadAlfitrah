@@ -340,11 +340,12 @@ class GuruController extends Controller
         return view('admin.guru.absen', compact('guru'));
     }
 
-    public function kehadiran($id)
+    public function kehadiran()
     {
-        $id = Crypt::decrypt($id);
-        $guru = Guru::findorfail($id);
-        $absen = Absen::orderBy('tanggal', 'desc')->where('guru_id', $id)->get();
+        $guru = Guru::all();
+        // dd($guru);
+        $absen = Absen::orderBy('tanggal', 'desc')->get();
+        // dd($absen[0]->guru->nama_guru);
         return view('admin.guru.kehadiran', compact('guru', 'absen'));
     }
 

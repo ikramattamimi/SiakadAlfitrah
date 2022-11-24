@@ -24,8 +24,11 @@ class UserController extends Controller
     {
         $user = User::all();
         $user = $user->groupBy('role');
-        $guru = Guru::all();
-        return view('admin.user.index', compact('user', 'guru'));
+        $guru = Guru::orderBy('nip')->get();
+        // dd($guru);
+        $siswa = Siswa::all();
+        // $guru = Guru::all();
+        return view('admin.user.index', compact('user', 'guru', 'siswa'));
     }
 
     /**
@@ -47,7 +50,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|string|email|max:255|unique:users',
+            // 'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
         ]);
@@ -72,8 +76,8 @@ class UserController extends Controller
                 return redirect()->back()->with('error', 'Maaf User ini tidak terdaftar sebagai guru!');
             }
         } elseif ($request->role == 'Siswa') {
-            $countSiswa = Siswa::where('no_induk', $request->nomer)->count();
-            $siswaId = Siswa::where('no_induk', $request->nomer)->get();
+            $countSiswa = Siswa::where('no_induk', $request->no_induk)->count();
+            $siswaId = Siswa::where('no_induk', $request->no_induk)->get();
             foreach ($siswaId as $val) {
                 $siswa = Siswa::findorfail($val->id);
             }
@@ -83,7 +87,7 @@ class UserController extends Controller
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role' => $request->role,
-                    'no_induk' => $request->nomer,
+                    'no_induk' => $request->no_induk,
                 ]);
                 return redirect()->back()->with('success', 'Berhasil menambahkan user Siswa baru!');
             } else {

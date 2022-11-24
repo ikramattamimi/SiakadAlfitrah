@@ -93,7 +93,7 @@
               <p>Jadwal</p>
             </a>
           </li>
-        @elseif (Auth::user()->role == 'Siswa' && Auth::user()->siswa(Auth::user()->no_induk))
+        @elseif (Auth::user()->role == 'Siswa')
           <li class="nav-item has-treeview">
             <a href="{{ url('/') }}" class="nav-link" id="Home">
               <i class="nav-icon fas fa-home"></i>

@@ -2,7 +2,7 @@
 @section('heading', 'Absensi Guru')
 @section('page')
     <li class="breadcrumb-item active"><a href="{{ route('guru.absensi') }}">Absensi guru</a></li>
-    <li class="breadcrumb-item active">{{ $guru->nama_guru }}</li>
+    {{-- <li class="breadcrumb-item active">{{ $guru->nama_guru }}</li> --}}
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -17,14 +17,18 @@
                 <tr>
                     <th>No.</th>
                     <th>Tanggal</th>
+                    <th>NIP</th>
+                    <th>Nama</th>
                     <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($absen as $data)
+                @foreach ($absen as $index => $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ date('l, d F Y', strtotime($data->tanggal)) }}</td>
+                    <td>{{ $data->guru->nip }}</td>
+                    <td>{{ $data->guru->nama_guru }}</td>
                     <td>{{ $data->kehadiran->ket }}</td>
                 </tr>
                 @endforeach
