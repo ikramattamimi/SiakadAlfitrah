@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AbsenSiswaExport;
 use App\Models\Absen;
 use App\Models\AbsenSiswa;
 use PDF;
@@ -20,6 +21,37 @@ use Illuminate\Support\Facades\Crypt;
 class SiswaController extends Controller
 {
 
+    // REKAP KEHADIRAN MENU ADMIN
+    public function kehadiran()
+    {
+        $siswa = Siswa::orderBy('nama_siswa')->get();
+        // dd($siswa->kelas);
+        $kehadiran = Kehadiran::all();
+        $absen = AbsenSiswa::orderBy('tanggal', 'desc')->get();
+        
+        // dd($absen[0]->kehadiran->ket);
+        return view('admin.siswa.kehadiran', compact('siswa', 'absen', 'kehadiran'));
+    }
+
+    public function export_excel_absen()
+    {
+        return Excel::download(new AbsenSiswaExport, 'absen-siswa.xlsx');
+    }
+
+    public function deleteAllKehadiran()
+    {
+        $siswa = AbsenSiswa::all();
+        if ($siswa->count() >= 1) {
+            AbsenSiswa::whereNotNull('id')->delete();
+            AbsenSiswa::whereNotNull('id')->forceDelete();
+            return redirect()->back()->with('success', 'Data table absensi siswa berhasil dihapus!');
+        } else {
+            return redirect()->back()->with('warning', 'Data table absensi siswa kosong!');
+        }
+    }
+
+
+    //ABSEN SISWA
     public function absen()
     {
         $absen = AbsenSiswa::where('tanggal', date('Y-m-d'))->where('no_induk', Auth::user()->no_induk)->get();
@@ -100,6 +132,64 @@ class SiswaController extends Controller
         } else {
             return redirect()->back()->with('error', 'Maaf id card ini tidak terdaftar!');
         }
+    }
+
+    public function simpanAbsenAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'id' => 'required',
+            'kehadiran_id' => 'required'
+        ]);
+        $siswa = Siswa::where('id', $request->id)->first();
+
+        $cekAbsen = AbsenSiswa::where('siswa_id', $siswa->id)->where('tanggal', $request->tanggal)->count();
+
+        // cek sudah absen atau belum
+        if ($cekAbsen == 0) {
+
+            // absen tepat waktu
+            AbsenSiswa::create([
+                'tanggal' => $request->tanggal,
+                'no_induk' => $siswa->no_induk,
+                'siswa_id' => $siswa->id,
+                'kehadiran_id' => $request->kehadiran_id,
+            ]);
+
+            return redirect()->back()->with('success', 'Absensi berhasil ditambahkan!');
+
+        } else {
+            return redirect()->back()->with('warning', 'Maaf absensi tidak bisa dilakukan 2x!');
+        }
+    }
+
+    public function editAbsenAdmin($id)
+    {
+        $id = Crypt::decrypt($id);
+        $kehadiran = Kehadiran::all();
+
+        $absen = AbsenSiswa::find($id);
+        return view('admin.siswa.edit-absen', compact('absen', 'kehadiran'));
+    }
+
+    public function updateAbsenAdmin(Request $request, $id)
+    {
+        $id = Crypt::decrypt($id);
+
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'id' => 'required',
+            'kehadiran_id' => 'required'
+        ]);
+        $siswa = Siswa::where('id', $request->id)->first();
+        
+        AbsenSiswa::where('id', $id)->update([
+            'tanggal' => $request->tanggal,
+            'siswa_id' => $siswa->id,
+            'kehadiran_id' => $request->kehadiran_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Absensi berhasil diupdate!');
     }
 
     /**

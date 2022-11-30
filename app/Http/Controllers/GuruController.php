@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AbsenGuruExport;
 use Auth;
 use App\Models\User;
 use App\Models\Guru;
@@ -116,6 +117,7 @@ class GuruController extends Controller
         $mapel = Mapel::all();
         return view('admin.guru.edit', compact('guru', 'mapel'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -274,10 +276,20 @@ class GuruController extends Controller
             $guru = Guru::where('id', $request->id)->first();
             if ($guru->id == Auth::user()->id_guru) {
                 $cekAbsen = Absen::where('guru_id', $guru->id)->where('tanggal', date('Y-m-d'))->count();
+
+                // cek sudah absen atau belum
                 if ($cekAbsen == 0) {
+
+                    // cek libur
                     if (date('w') != '0' && date('w') != '6') {
+
+                        // cek minimal waktu absen
                         if (date('H:i:s') >= '06:00:00') {
+
+                            // cek maksimal waktu absen (terlambat)
                             if (date('H:i:s') >= '09:00:00') {
+
+                                // cek maksimal waktu absen (pulang)
                                 if (date('H:i:s') >= '16:15:00') {
                                     Absen::create([
                                         'tanggal' => date('Y-m-d'),
@@ -285,7 +297,12 @@ class GuruController extends Controller
                                         'kehadiran_id' => '6',
                                     ]);
                                     return redirect()->back()->with('info', 'Maaf sekarang sudah waktunya pulang!');
-                                } else {
+                                }
+
+                                // absensi telat
+                                else {
+
+                                    // absen telat
                                     if ($request->kehadiran_id == '1') {
                                         $terlambat = date('H') - 9 . ' Jam ' . date('i') . ' Menit';
                                         if (date('H') - 9 == 0) {
@@ -297,7 +314,10 @@ class GuruController extends Controller
                                             'kehadiran_id' => '5',
                                         ]);
                                         return redirect()->back()->with('warning', 'Maaf anda terlambat ' . $terlambat . '!');
-                                    } else {
+                                    }
+
+                                    // absen 
+                                    else {
                                         Absen::create([
                                             'tanggal' => date('Y-m-d'),
                                             'guru_id' => $guru->id,
@@ -306,7 +326,10 @@ class GuruController extends Controller
                                         return redirect()->back()->with('success', 'Anda hari ini berhasil absen!');
                                     }
                                 }
-                            } else {
+                            }
+
+                            // absen tepat waktu
+                            else {
                                 Absen::create([
                                     'tanggal' => date('Y-m-d'),
                                     'guru_id' => $guru->id,
@@ -334,6 +357,65 @@ class GuruController extends Controller
         }
     }
 
+    public function simpanAbsenAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'id' => 'required',
+            'kehadiran_id' => 'required'
+        ]);
+        $guru = Guru::where('id', $request->id)->first();
+
+        $cekAbsen = Absen::where('guru_id', $guru->id)->where('tanggal', $request->tanggal)->count();
+
+        // cek sudah absen atau belum
+        if ($cekAbsen == 0) {
+
+            // absen tepat waktu
+            Absen::create([
+                'tanggal' => $request->tanggal,
+                'guru_id' => $guru->id,
+                'kehadiran_id' => $request->kehadiran_id,
+            ]);
+
+            return redirect()->back()->with('success', 'Absensi berhasil ditambahkan!');
+        } else {
+            return redirect()->back()->with('warning', 'Maaf absensi tidak bisa dilakukan 2x!');
+        }
+    }
+
+
+    public function editAbsenAdmin($id)
+    {
+        $id = Crypt::decrypt($id);
+        $kehadiran = Kehadiran::all();
+
+        $absen = Absen::find($id);
+        return view('admin.guru.edit-absen', compact('absen', 'kehadiran'));
+    }
+
+    public function updateAbsenAdmin(Request $request, $id)
+    {
+        $id = Crypt::decrypt($id);
+
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'id' => 'required',
+            'kehadiran_id' => 'required'
+        ]);
+        $guru = Guru::where('id', $request->id)->first();
+        $absen = Absen::find($id);
+        
+        Absen::where('id', $id)->update([
+            'tanggal' => $request->tanggal,
+            'guru_id' => $guru->id,
+            'kehadiran_id' => $request->kehadiran_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Absensi berhasil diupdate!');
+    }
+
+
     public function absensi()
     {
         $guru = Guru::all();
@@ -343,15 +425,32 @@ class GuruController extends Controller
     public function kehadiran()
     {
         $guru = Guru::all();
-        // dd($guru);
+        $kehadiran = Kehadiran::all();
         $absen = Absen::orderBy('tanggal', 'desc')->get();
-        // dd($absen[0]->guru->nama_guru);
-        return view('admin.guru.kehadiran', compact('guru', 'absen'));
+        // dd($absen[0]->kehadiran->ket);
+        return view('admin.guru.kehadiran', compact('guru', 'absen', 'kehadiran'));
     }
 
     public function export_excel()
     {
         return Excel::download(new GuruExport, 'guru.xlsx');
+    }
+
+    public function export_excel_absen()
+    {
+        return Excel::download(new AbsenGuruExport, 'absen-guru.xlsx');
+    }
+
+    public function deleteAllKehadiran()
+    {
+        $guru = Absen::all();
+        if ($guru->count() >= 1) {
+            Absen::whereNotNull('id')->delete();
+            Absen::whereNotNull('id')->forceDelete();
+            return redirect()->back()->with('success', 'Data table absensi guru berhasil dihapus!');
+        } else {
+            return redirect()->back()->with('warning', 'Data table absensi guru kosong!');
+        }
     }
 
     public function import_excel(Request $request)

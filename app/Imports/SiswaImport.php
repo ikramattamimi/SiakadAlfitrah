@@ -17,26 +17,29 @@ class SiswaImport implements ToModel
      */
     public function model(array $row)
     {
-        $kelas = Kelas::where('nama_kelas', $row[3])->first();
+        $kelas = Kelas::where('nama_kelas', $row[5])->first();
         if ($row[2] == 'L') {
             $foto = 'uploads/siswa/52471919042020_male.jpg';
         } else {
             $foto = 'uploads/siswa/50271431012020_female.jpg';
         }
         DB::table('users')->insert([
-            'name' => $row[0],
-            'email' => $row[1],
-            'password' => Hash::make($row[4]),
-            'no_induk' => $row[1],
+            'name' => $row[1],
+            'email' => $row[0],
+            'password' => Hash::make($row[7]),
+            'no_induk' => $row[0],
             'role' => 'Siswa',
         ]);
 
         return new Siswa([
-            'nama_siswa' => $row[0],
-            'no_induk' => $row[1],
+            'no_induk' => $row[0],
+            'nama_siswa' => $row[1],
             'jk' => $row[2],
+            'tmp_lahir' => $row[3],
             'foto' => $foto,
+            'nis' => $row[4],
             'kelas_id' => $kelas->id,
+            'tgl_lahir' => $row[6],
         ]);
     }
 }

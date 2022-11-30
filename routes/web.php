@@ -95,7 +95,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/pengumuman', 'PengumumanController@index')->name('admin.pengumuman');
     Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
     // Route::get('/guru/absensi', 'GuruController@absensi')->name('guru.absensi');
+
     Route::get('/guru/absensi', 'GuruController@kehadiran')->name('guru.absensi');
+    Route::get('/guru/absensi/export-excel', 'GuruController@export_excel_absen')->name('guru.absensi.export');
+    Route::delete('/guru/absensi/deleteAll', 'GuruController@deleteAllKehadiran')->name('guru.absensi.deleteAll');
+
+    Route::get('/siswa/absensi', 'SiswaController@kehadiran')->name('siswa.absensi');
+    Route::get('/siswa/absensi/export-excel', 'SiswaController@export_excel_absen')->name('siswa.absensi.export');
+    Route::delete('/siswa/absensi/deleteAll', 'SiswaController@deleteAllKehadiran')->name('siswa.absensi.deleteAll');
+    
     Route::get('/absen/json', 'GuruController@json');
     Route::get('/guru/mapel/{id}', 'GuruController@mapel')->name('guru.mapel');
     Route::get('/guru/ubah-foto/{id}', 'GuruController@ubah_foto')->name('guru.ubah-foto');
@@ -135,5 +143,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rapot-show/{id}', 'RapotController@rapot')->name('rapot-show');
     Route::get('/predikat', 'NilaiController@create')->name('predikat');
     Route::resource('/user', 'UserController');
+  
+    Route::post('/absenguru/simpan', 'GuruController@simpanAbsenAdmin')->name('absenguru.simpan.admin');
+    Route::get('/absenguru/edit/{id}', 'GuruController@editAbsenAdmin')->name('absenguru.edit.admin');
+    Route::post('/absenguru/update/{id}', 'GuruController@updateAbsenAdmin')->name('absenguru.update.admin');
+
+    Route::post('/absensiswa/simpan', 'SiswaController@simpanAbsenAdmin')->name('absensiswa.simpan.admin');
+    Route::get('/absensiswa/edit/{id}', 'SiswaController@editAbsenAdmin')->name('absensiswa.edit.admin');
+    Route::post('/absensiswa/update/{id}', 'SiswaController@updateAbsenAdmin')->name('absensiswa.update.admin');
+    
   });
 });

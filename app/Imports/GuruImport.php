@@ -5,6 +5,8 @@ namespace App\Imports;
 use App\Models\Guru;
 use App\Models\User;
 use App\Models\Mapel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class GuruImport implements ToModel
@@ -36,6 +38,15 @@ class GuruImport implements ToModel
             $foto = 'uploads/guru/23171022042020_female.jpg';
         }
 
+        
+        DB::table('users')->insert([
+            'name' => $row[0],
+            'email' => $row[1],
+            'role' => 'Guru',
+            'password' => Hash::make($row[6]),
+            'id_guru' => $id,
+        ]);
+
         return new Guru([
             'id' => $id,
             'nama_guru' => $row[0],
@@ -43,13 +54,10 @@ class GuruImport implements ToModel
             'jk' => $row[2],
             'foto' => $foto,
             'mapel_id' => $mapel->id,
-            'password' => $row[4],
+            'tmp_lahir' => $row[4],
+            'tgl_lahir' => $row[5],
+            
         ]);
 
-        return new User([
-            'name' => $row[0],
-            'role' => 'Guru',
-            'password' => $row[5],
-        ]);
     }
 }

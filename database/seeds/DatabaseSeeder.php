@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(KehadiranSeeder::class);
         $this->call(RuangSeeder::class);
         $this->call(UsersSeeder::class);
-        $this->call(SiswaSeeder::class);
-        $this->call(GuruSeeder::class);
-        $this->call(JadwalSeeder::class);
+        // $this->call(SiswaSeeder::class);
+        // $this->call(GuruSeeder::class);
+        // $this->call(JadwalSeeder::class);
     }
 }
