@@ -1,8 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <div class="card-body login-card-body">
-        <h3 class="login-box-msg text-dark font-weight-bold">Selamat Datang</h3>
-        <p class="login-box-msg text-dark font-weight-light subMsg">SMPIT AL-FITRAH BANDUNG</p>
+    <div class="card-body login-card-body rounded elevation-5">
+        <div class="row">
+            <div class="col-2"><img src="img/alfitrah.png" style="width: 50px; height: 50px;" alt=""></div>
+            <div class="col-10">
+                <p class="login-box-msg text-dark font-weight-bold text-left font-size ml-1">Selamat Datang !</p>
+                <p class="login-box-msg text-dark font-weight-light subMsg">SMPIT AL-FITRAH BANDUNG</p>
+            </div>
+
+        </div>
 
         <form action="{{ route('login') }}" method="post">
             @csrf
@@ -22,9 +28,9 @@
                 <input id="password" type="password" placeholder="{{ __('Masukkan Password') }}"
                     class="form-control @error('password') is-invalid @enderror" name="password"
                     autocomplete="current-password">
-                <span class="show-hide ">
-                  <i class='fas fa-eye'></i>
-                </span>
+                    <span class="show-hide ">
+                        <i class='fas fa-eye'></i>
+                    </span>
                 @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -32,49 +38,25 @@
                 @enderror
             </div>
             <div class="row p-3">
-                {{-- <div class="col-7">
-          <div class="icheck-primary">
-            <input type="checkbox" id="remember" class="form-check-input" type="checkbox" name="remember"
-              {{ old('remember') ? 'checked' : '' }} disabled>
-            <label for="remember">
-              {{ __('Ingat Saya') }}
-            </label>
-          </div>
-        </div> --}}
-                <!-- /.col -->
-                {{-- <div class="col-5"> --}}
                 <button type="submit" id="btn-login" class="btn btn-block buttonLogin">{{ __('Login') }} &nbsp;</button>
-                {{-- </div> --}}
-                <!-- /.col -->
             </div>
         </form>
-
-        {{-- <p class="mb-1">
-      @if (Route::has('password.request'))
-        <a class="text-center" href="{{ route('password.request') }}">
-          {{ __('Lupa Password?') }}
-        </a>
-      @endif
-    </p> --}}
-        {{-- <p class="mb-0">
-      <a class="text-center" href="{{ route('register') }}">Buat Akun Baru</a>
-    </p> --}}
     </div>
 @endsection
 @section('script')
-<script>
-  const password1 = document.getElementById("password");
-  const btn_show = document.querySelector("i");
-  btn_show.addEventListener("click", function(){
-    if(password1.type === "password"){
-      password1.type = "text";
-      btn_show.classList.add("hide");
-    } else{
-      password1.type = "password";
-      btn_show.classList.remove("hide");
-    }
-  })
-</script>
+    <script>
+        const password1 = document.getElementById("password");
+        const btn_show = document.querySelector("i");
+        btn_show.addEventListener("click", function() {
+            if (password1.type === "password") {
+                password1.type = "text";
+                btn_show.classList.add("hide");
+            } else {
+                password1.type = "password";
+                btn_show.classList.remove("hide");
+            }
+        })
+    </script>
     <script>
         $("#email").keyup(function() {
             var email = $("#email").val();
@@ -92,13 +74,11 @@
                             $("#email").removeClass("is-invalid");
                             $("#email").addClass("is-valid");
                             $("#password").val('');
-                            $("#password").removeAttr("disabled", "disabled");
+                            // $("#password").removeAttr("disabled", "disabled");
                         } else {
                             $("#email").removeClass("is-valid");
                             $("#email").addClass("is-invalid");
                             $("#password").val('');
-                            $("#password").attr("disabled", "disabled");
-                            $("#remember").attr("disabled", "disabled");
                             $("#btn-login").attr("disabled", "disabled");
                         }
                     },
@@ -108,8 +88,6 @@
                 $("#email").removeClass("is-valid");
                 $("#email").removeClass("is-invalid");
                 $("#password").val('');
-                $("#password").attr("disabled", "disabled");
-                $("#remember").attr("disabled", "disabled");
                 $("#btn-login").attr("disabled", "disabled");
             }
         });

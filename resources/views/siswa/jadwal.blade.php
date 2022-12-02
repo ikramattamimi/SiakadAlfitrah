@@ -1,6 +1,6 @@
 @extends('template_backend.home')
 @section('heading')
-    Jadwal Kelas {{ $kelas->nama_kelas }}
+    Jadwal {{ $kelas->nama_kelas }}
 @endsection
 @section('page')
   <li class="breadcrumb-item active">Jadwal Kelas</li>
@@ -11,7 +11,7 @@
         <div class="card-body">
           <table id="example2" class="table table-bordered table-striped table-hover">
             <thead>
-                <tr>
+                <tr style="background-color: #0F4C81" class="text-light">
                     <th>Hari</th>
                     <th>Mata Pelajaran</th>
                     <th>Jam Pelajaran</th>

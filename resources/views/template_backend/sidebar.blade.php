@@ -7,17 +7,17 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" >
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Operator')
                     @include('template_backend.menu-admin')
-                @elseif (Auth::user()->role == 'Guru' && Auth::user()->guru(Auth::user()->id))
+                @elseif (Auth::user()->role == 'Guru')
                     @include('template_backend.menu-guru')
                 @elseif (Auth::user()->role == 'Siswa')
-                    @include('template_backend.menu-guru')
+                    @include('template_backend.menu-siswa')
                 @else
                     <li class="nav-item has-treeview">
                         <a href="{{ url('/') }}" class="nav-link" id="Home">
@@ -27,6 +27,7 @@
                     </li>
                 @endif
             </ul>
+            
         </nav>
         <!-- /.sidebar-menu -->
     </div>

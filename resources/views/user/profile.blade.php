@@ -18,7 +18,7 @@
         <div class="card-body">
           @if (Auth::user()->role == 'Guru')
             <div class="row">
-              <input type="hidden" name="role" value="{{ Auth::user()->guru(Auth::user()->id)->role }}">
+              <input type="hidden" name="role" value="{{ Auth::user()->guru(Auth::user()->id_guru)->role }}">
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Nama Guru</label>
@@ -31,7 +31,7 @@
                     class="select2bs4 form-control @error('mapel_id') is-invalid @enderror">
                     <option value="">-- Pilih Mapel --</option>
                     @foreach ($mapel as $data)
-                      <option value="{{ $data->id }}" @if (Auth::user()->guru(Auth::user()->id)->mapel_id == $data->id) selected @endif>
+                      <option value="{{ $data->id }}" @if (Auth::user()->guru(Auth::user()->id_guru)->mapel_id == $data->id) selected @endif>
                         {{ $data->nama_mapel }}</option>
                     @endforeach
                   </select>
@@ -39,18 +39,18 @@
                 <div class="form-group">
                   <label for="tmp_lahir">Tempat Lahir</label>
                   <input type="text" id="tmp_lahir" name="tmp_lahir"
-                    value="{{ Auth::user()->guru(Auth::user()->id)->tmp_lahir }}"
+                    value="{{ Auth::user()->guru(Auth::user()->id_guru)->tmp_lahir }}"
                     class="form-control @error('tmp_lahir') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                   <label for="id">Nomor ID Card</label>
                   <input type="text" id="id" name="id" class="form-control"
-                    value="{{ Auth::user()->guru(Auth::user()->id)->id }}" disabled>
+                    value="{{ Auth::user()->guru(Auth::user()->id_guru)->id }}" disabled>
                 </div>
                 <div class="form-group">
                   <label for="telp">Nomor Telpon/HP</label>
                   <input type="text" id="telp" name="telp" onkeypress="return inputAngka(event)"
-                    value="{{ Auth::user()->guru(Auth::user()->id)->telp }}"
+                    value="{{ Auth::user()->guru(Auth::user()->id_guru)->telp }}"
                     class="form-control @error('telp') is-invalid @enderror">
                 </div>
               </div>
@@ -58,27 +58,27 @@
                 <div class="form-group">
                   <label for="nip">NIP</label>
                   <input type="text" id="nip" name="nip" onkeypress="return inputAngka(event)"
-                    value="{{ Auth::user()->guru(Auth::user()->id)->nip }}"
+                    value="{{ Auth::user()->guru(Auth::user()->id_guru)->nip }}"
                     class="form-control @error('nip') is-invalid @enderror" disabled>
                 </div>
                 <div class="form-group">
                   <label for="jk">Jenis Kelamin</label>
                   <select id="jk" name="jk" class="select2bs4 form-control @error('jk') is-invalid @enderror">
                     <option value="">-- Pilih Jenis Kelamin --</option>
-                    <option value="L" @if (Auth::user()->guru(Auth::user()->id)->jk == 'L') selected @endif>Laki-Laki</option>
-                    <option value="P" @if (Auth::user()->guru(Auth::user()->id)->jk == 'P') selected @endif>Perempuan</option>
+                    <option value="L" @if (Auth::user()->guru(Auth::user()->id_guru)->jk == 'L') selected @endif>Laki-Laki</option>
+                    <option value="P" @if (Auth::user()->guru(Auth::user()->id_guru)->jk == 'P') selected @endif>Perempuan</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="tgl_lahir">Tanggal Lahir</label>
                   <input type="date" id="tgl_lahir" name="tgl_lahir"
-                    value="{{ Auth::user()->guru(Auth::user()->id)->tgl_lahir }}"
+                    value="{{ Auth::user()->guru(Auth::user()->id_guru)->tgl_lahir }}"
                     class="form-control @error('tgl_lahir') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                   <label for="kode">Kode Jadwal</label>
                   <input type="text" id="kode" name="kode" class="form-control"
-                    value="{{ Auth::user()->guru(Auth::user()->id)->kode }}" disabled>
+                    value="{{ Auth::user()->guru(Auth::user()->id_guru)->kode }}" disabled>
                 </div>
               </div>
             </div>

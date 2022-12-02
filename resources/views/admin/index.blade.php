@@ -139,43 +139,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">Kelas / Paket Keahlian </span>
-                    </p>
-                    <p class="ml-auto d-flex flex-column text-right">
-                        <span class="text-success">
-                            <i class="fas fa-arrow-up"></i> {{ $kelas }}
-                        </span>
-                    </p>
-                </div>
-                <div class="position-relative mb-4">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="chart-responsive">
-                                <canvas id="pieChartPaket" height="150"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <ul class="chart-legend clearfix">
-                                <li><i class="far fa-circle" style="color: #d4c148"></i> Bisnis kontruksi dan Properti</li>
-                                <li><i class="far fa-circle" style="color: #ba6906"></i> Desain Permodelan dan Informasi Bangunan</li>
-                                <li><i class="far fa-circle" style="color: #ff990a"></i> Elektronika Industri</li>
-                                <li><i class="far fa-circle" style="color: #00a352"></i> Otomasi Industri</li>
-                                <li><i class="far fa-circle" style="color: #2cabe6"></i> Teknik dan Bisnis Sepeda Motor</li>
-                                <li><i class="far fa-circle" style="color: #999999"></i> Rekayasa Perangkat Lunak</li>
-                                <li><i class="far fa-circle" style="color: #0b2e75"></i> Teknik Pemesinan</li>
-                                <li><i class="far fa-circle" style="color: #7980f7"></i> Teknik Pengelasan</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 @endsection
 @section('script')
     <script type="text/javascript">

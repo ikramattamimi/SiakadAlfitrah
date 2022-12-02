@@ -30,7 +30,7 @@
     text-align: left;
     margin-top: -10px;
     margin-left: 5px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     font-size: small;
 }
 
@@ -38,7 +38,7 @@
     position: absolute;
     padding-left: 5px;
     right: 45px;
-    bottom: 135px;
+    bottom: 160px;
     transform: translateY(50%);
     border-left: solid black 1px;
 }

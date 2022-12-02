@@ -12,10 +12,10 @@
           <div class="card-body box-profile">
             <div class="text-center">
               @if (Auth::user()->role == 'Guru')
-                <a href="{{ asset(Auth::user()->guru(Auth::user()->id)->foto) }}" data-toggle="lightbox"
+                <a href="{{ asset(Auth::user()->guru(Auth::user()->id_guru)->foto) }}" data-toggle="lightbox"
                   data-title="Foto {{ Auth::user()->name }}" data-gallery="gallery"
                   data-footer='<a href="{{ route('pengaturan.edit-foto') }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
-                  <img src="{{ asset(Auth::user()->guru(Auth::user()->id)->foto) }}" width="130px"
+                  <img src="{{ asset(Auth::user()->guru(Auth::user()->id_guru)->foto) }}" width="130px"
                     class="profile-user-img img-fluid img-circle" alt="User profile picture">
                 </a>
               @elseif (Auth::user()->role == 'Siswa')
@@ -35,10 +35,10 @@
             @if (Auth::user()->role == 'Guru')
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Id Guru</b> <a class="float-right">{{ Auth::user()->id }}</a>
+                  <b>Id Guru</b> <a class="float-right">{{ Auth::user()->id_guru }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>NIP</b> <a class="float-right">{{ Auth::user()->guru(Auth::user()->id)->nip }}</a>
+                  <b>NIP</b> <a class="float-right">{{ Auth::user()->guru(Auth::user()->id_guru)->nip }}</a>
                 </li>
               </ul>
             @elseif (Auth::user()->role == 'Siswa')
@@ -95,10 +95,10 @@
 
             @if (Auth::user()->role == 'Guru')
               <strong><i class="fas fa-book mr-1"></i> Guru Mapel</strong>
-              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id)->mapel->nama_mapel }}</p>
+              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id_guru)->mapel->nama_mapel }}</p>
               <hr>
               <strong><i class="far fa-file-alt mr-1"></i> Kode Jadwal</strong>
-              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id)->kode }}</p>
+              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id_guru)->kode }}</p>
               <hr>
             @elseif (Auth::user()->role == 'Siswa')
               <strong><i class="fas fa-home mr-1"></i> Tempat Lahir</strong>
@@ -109,7 +109,7 @@
 
             @if (Auth::user()->role == 'Guru')
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Lahir</strong>
-              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id)->tmp_lahir }}</p>
+              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id_guru)->tmp_lahir }}</p>
               <hr>
             @elseif (Auth::user()->role == 'Siswa')
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Lahir</strong>
@@ -120,7 +120,7 @@
 
             @if (Auth::user()->role == 'Guru')
               <strong><i class="far fa-calendar mr-1"></i> Tanggal Lahir</strong>
-              <p class="text-muted">{{ date('l, d F Y', strtotime(Auth::user()->guru(Auth::user()->id)->tgl_lahir)) }}
+              <p class="text-muted">{{ date('l, d F Y', strtotime(Auth::user()->guru(Auth::user()->id_guru)->tgl_lahir)) }}
               </p>
               <hr>
             @elseif (Auth::user()->role == 'Siswa')
@@ -133,7 +133,7 @@
 
             @if (Auth::user()->role == 'Guru')
               <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
-              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id)->telp }}</p>
+              <p class="text-muted">{{ Auth::user()->guru(Auth::user()->id_guru)->telp }}</p>
             @elseif (Auth::user()->role == 'Siswa')
               <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
               <p class="text-muted">{{ Auth::user()->siswa(Auth::user()->no_induk)->telp }}</p>

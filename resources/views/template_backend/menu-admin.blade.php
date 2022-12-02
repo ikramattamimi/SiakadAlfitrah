@@ -49,6 +49,12 @@
                 <p>Data User</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.pengumuman') }}" class="nav-link" id="DataUser">
+                <i class="fas fa-sticky-note nav-icon"></i>
+                <p>Pengumuman</p>
+            </a>
+        </li>
     </ul>
 </li>
 @if (Auth::user()->role == 'Admin')

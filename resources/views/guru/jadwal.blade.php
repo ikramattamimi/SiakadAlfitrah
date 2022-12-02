@@ -1,7 +1,7 @@
 @extends('template_backend.home')
 @section('heading', 'Jadwal Guru')
 @section('heading')
-  Jadwal Guru {{ Auth::user()->guru(Auth::user()->id)->nama_guru }}
+  Jadwal Guru {{ Auth::user()->guru(Auth::user()->id_guru)->nama_guru }}
 @endsection
 @section('page')
   <li class="breadcrumb-item active">Jadwal Guru</li>
@@ -12,7 +12,7 @@
       <div class="card-body">
         <table id="example2" class="table table-bordered table-striped table-hover">
           <thead>
-            <tr>
+            <tr style="background-color: #0F4C81" class="text-light">
               <th>Hari</th>
               <th>Kelas</th>
               <th>Jam Mengajar</th>

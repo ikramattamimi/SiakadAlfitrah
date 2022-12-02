@@ -8,13 +8,13 @@
       <div class="card card-primary">
         <div class="card-body">
               <table class="table table-striped table-hover">
-                <thead>
+                <thead class="text-light" style="background-color: #0F4C81">
                   <tr>
                     <th>Jam Pelajaran</th>
                     <th>Mata Pelajaran</th>
                     <th>Kelas</th>
                     <th>Ruang Kelas</th>
-                    <th>Ket.</th>
+                    {{-- <th>Ket.</th> --}}
                   </tr>
                 </thead>
                 <tbody id="data-jadwal">
@@ -92,22 +92,24 @@
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div class="card card-warning" style="min-height: 385px;">
-        <div class="card-header">
+    <div class="col-lg-12">
+      <div class="card" style="min-height: 385px;">
+        <div class="card-header m-2" style="background-color: #0F4C81;">
           <h3 class="card-title" style="color: white;">
             Pengumuman
           </h3>
         </div>
         <div class="card-body">
           <div class="tab-content p-0">
-            {!! $pengumuman->isi !!}
+            <?php $Parsedown = new Parsedown()?>
+              {!! ($Parsedown)->text($pengumuman->isi) !!}
+
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
       <div class="card card-info">
         <div class="card-header">
           <h3 class="card-title">
@@ -130,7 +132,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 @endsection
 @section('script')
     <script>

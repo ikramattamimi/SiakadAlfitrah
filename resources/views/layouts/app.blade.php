@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-  <link rel="shrotcut icon" href="{{ asset('img/alfitrah.jpg') }}">
+  <link href="{{ asset('img/alfitrah.png') }}" rel="shortcut icon">
   <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
   <script src="jquery.js"></script>
 </head>

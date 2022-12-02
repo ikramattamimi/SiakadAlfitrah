@@ -10,7 +10,7 @@
         <li class="nav-item">
             <div class="btn-group" role="group">
                 <a id="btnGroupDrop1" style="color: #fff; margin-right: 40px;" type="button" class="dropdown-toggle text-capitalize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="nav-icon fas fa-user-circle"></i> &nbsp; {{ Auth::user()->name }}
+                     Welcome, {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item" href="{{ route('profile') }}"><i class="nav-icon fas fa-user"></i> &nbsp; My Profile</a>

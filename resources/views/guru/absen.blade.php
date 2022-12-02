@@ -7,7 +7,51 @@
   @php
     $no = 1;
   @endphp
-  <div class="col-md-6">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header" style="background-color: #0F4C81">
+        <h3 class="card-title text-light">Absen Harian Guru</h3>
+      </div>
+      <form action="{{ route('absen.simpan') }}" method="post">
+        @csrf
+        <div class="card-body">
+          <div class="form-group">
+            {{-- <label for="id">Nomor ID Card</label> --}}
+            <input type="text" id="id" name="id" value="{{ Auth::user()->id_guru }}" hidden maxlength="5"
+            onkeypress="return" class="form-control @error('id') is-invalid @enderror">
+          </div>
+          <div class="form-group">
+            <label for="kehadiran_id">Keterangan Kehadiran</label>
+            <select id="kehadiran_id" type="text"
+            class="form-control @error('kehadiran_id') is-invalid @enderror select2bs4" name="kehadiran_id">
+            <option value="">-- Pilih Keterangan Kehadiran --</option>
+            @foreach ($kehadiran as $data)
+            <option value="{{ $data->id }}">{{ $data->ket }}</option>
+            @endforeach
+            </select>
+          </div>
+          {{-- <div>
+            <table class="table table-bordered table-striped table-hover">
+              @foreach ($absen as $data)
+              <tr>
+                <td>{{ $data->kehadiran->ket }}</td>
+                <td>{{ $data->created_at->format('H:i:s') }}</td>
+              </tr>
+              @endforeach
+            </table>
+          </div> --}}
+          <div class="d-flex align-items-end flex-column">
+
+            <button name="submit" class="btn btn-primary "><i class="fa fa-check-circle" aria-hidden="true"></i> &nbsp; Absen</button>
+          </div>
+        </div>
+        {{-- <div class="card-footer">
+          
+        </div> --}}
+      </form>
+    </div>
+  </div>
+  <div class="col-md-12">
     <div class="card">
       <div class="card-body">
         <table id="example1" class="table table-bordered table-striped table-hover">
@@ -33,47 +77,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="card card-primary">
-      <div class="card-header">
-        <h3 class="card-title">Absen Harian Guru</h3>
-      </div>
-      <form action="{{ route('absen.simpan') }}" method="post">
-        @csrf
-        <div class="card-body">
-          <div class="form-group">
-            {{-- <label for="id">Nomor ID Card</label> --}}
-            <input type="text" id="id" name="id" value="{{ Auth::user()->id_guru }}" hidden maxlength="5"
-              onkeypress="return" class="form-control @error('id') is-invalid @enderror">
-          </div>
-          <div class="form-group">
-            <label for="kehadiran_id">Keterangan Kehadiran</label>
-            <select id="kehadiran_id" type="text"
-              class="form-control @error('kehadiran_id') is-invalid @enderror select2bs4" name="kehadiran_id">
-              <option value="">-- Pilih Keterangan Kehadiran --</option>
-              @foreach ($kehadiran as $data)
-                <option value="{{ $data->id }}">{{ $data->ket }}</option>
-              @endforeach
-            </select>
-          </div>
-          {{-- <div>
-            <table class="table table-bordered table-striped table-hover">
-              @foreach ($absen as $data)
-                <tr>
-                  <td>{{ $data->kehadiran->ket }}</td>
-                  <td>{{ $data->created_at->format('H:i:s') }}</td>
-                </tr>
-              @endforeach
-            </table>
-          </div> --}}
-        </div>
-        <div class="card-footer">
-          <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Absen</button>
-        </div>
-      </form>
-    </div>
-  </div>
-@endsection
+  @endsection
 @section('script')
   <script>
     $("#AbsenGuru").addClass("active");

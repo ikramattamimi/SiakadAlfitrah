@@ -321,7 +321,7 @@ class UserController extends Controller
             $this->validate($request, [
                 'foto' => 'required'
             ]);
-            $guru = Guru::where('id', Auth::user()->id)->first();
+            $guru = Guru::where('id', Auth::user()->id_guru)->first();
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             $guru_data = [
